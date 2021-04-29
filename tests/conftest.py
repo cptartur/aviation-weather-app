@@ -20,6 +20,7 @@ def client():
     with app.test_client() as client:
         with app.app_context():
             db.init_app(app)
+            db.create_all()
             yield client
 
 
