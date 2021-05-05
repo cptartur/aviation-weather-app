@@ -5,3 +5,7 @@ htmlcov
 .coverage
 
 .vscode
+
+.flaskenv
+
+*.db
