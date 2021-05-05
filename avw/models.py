@@ -9,7 +9,11 @@ class User(db.Model):
     favorite_airports = db.Column(db.JSON())
 
     def __init__(self, username, email, password):
-        return
+        self.username = username
+        self.email = email
+        self.password_hash = password
+        self.preferences = {}
+        self.favorite_airports = []
 
     def __repr__(self):
         return f"<User {self.username}>"
