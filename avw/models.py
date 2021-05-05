@@ -1,4 +1,6 @@
-from avw import db
+from avw import db, login_manager
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 
 class User(UserMixin, db.Model):
@@ -12,9 +14,9 @@ class User(UserMixin, db.Model):
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
-        self.password_hash = password
         self.preferences = {}
         self.favorite_airports = []
+        self.set_password(password=password)
 
     def __repr__(self):
         return f"<User {self.username}>"
@@ -51,3 +53,11 @@ class User(UserMixin, db.Model):
 
     def get_preferences(self) -> dict:
         return self.preferences
+
+
+@login_manager.user_loader
+def load_user(id):
+    try:
+        return User.query.get(int(id))
+    except ValueError:
+        return None
