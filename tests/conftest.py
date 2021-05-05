@@ -8,7 +8,7 @@ class TestConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def new_user() -> User:
     user = User('Joe', 'example@example.com', 'VerySecure')
     return user
