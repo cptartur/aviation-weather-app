@@ -19,32 +19,34 @@ class User(db.Model):
         return f"<User {self.username}>"
 
     @staticmethod
-    def hash_password(self) -> str:
-        return
+    def hash_password(password) -> str:
+        return generate_password_hash(password=password)
 
-    def set_password(self) -> None:
-        return
+    def set_password(self, password) -> None:
+        self.password_hash = User.hash_password(password=password)
 
     def validate_password(self, password: str) -> bool:
-        return
+        return check_password_hash(self.password_hash, password)
 
     def set_email(self, mail: str) -> None:
-        return
+        self.email = mail
 
     def set_nickname(self, nickname: str) -> None:
-        return
+        self.username = nickname
 
     def add_airport_to_favorites(self, airport: str) -> None:
-        return
+        if airport not in self.favorite_airports:
+            self.favorite_airports.append(airport)
 
     def remove_airport_from_favorites(self, airport: str) -> None:
-        return
+        if airport in self.favorite_airports:
+            self.favorite_airports.remove(airport)
 
-    def get_favorite_airports(self) -> dict:
-        return
+    def get_favorite_airports(self) -> list:
+        return self.favorite_airports
 
     def update_preferences(self, preferences: dict) -> None:
-        return
+        self.preferences.update(preferences)
 
     def get_preferences(self) -> dict:
-        return
+        return self.preferences
