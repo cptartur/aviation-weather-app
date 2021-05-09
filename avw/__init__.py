@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
-from avw.main import bp as main_bp
 
 db = SQLAlchemy()
 
@@ -13,9 +12,9 @@ def create_app(config=Config):
     # if not app.testing:
     #     # continue setup
     #     pass
-
     db.init_app(app)
 
+    from avw.main import bp as main_bp
     app.register_blueprint(main_bp)
 
     return app
