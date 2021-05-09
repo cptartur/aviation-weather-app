@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_mailman import Mail
 from config import Config
 from avw.main import bp as main_bp
 
 
 db = SQLAlchemy()
 login_manager = LoginManager()
+mail = Mail()
 
 def create_app(config=Config):
     app = Flask(__name__)
@@ -18,6 +20,7 @@ def create_app(config=Config):
 
     db.init_app(app)
     login_manager.init_app(app)
+    mail.init_app(app)
 
     app.register_blueprint(main_bp)
 
