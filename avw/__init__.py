@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mailman import Mail
 from config import Config
-from avw.main import bp as main_bp
 
 
 db = SQLAlchemy()
@@ -17,11 +16,11 @@ def create_app(config=Config):
     # if not app.testing:
     #     # continue setup
     #     pass
-
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
 
+    from avw.main import bp as main_bp
     app.register_blueprint(main_bp)
 
     from avw.auth import bp as auth_bp
