@@ -1,6 +1,9 @@
 from avw import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from jwt import decode, encode
+from time import time
+from flask import current_app
 
 
 class User(UserMixin, db.Model):
@@ -53,6 +56,20 @@ class User(UserMixin, db.Model):
 
     def get_preferences(self) -> dict:
         return self.preferences
+
+    def get_reset_password_token(self, exp=600) -> str:
+        token = encode({'user_id': self.id, 'exp': time() + exp},
+                       current_app.config.get('SECRET_KEY'), algorithm='HS256')
+        return token
+    
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            token = decode(token, current_app.config.get('SECRET_KEY'), algorithms='HS256')
+        except:
+            return None
+        else:
+            return User.query.get(token.get('user_id'))
 
 
 @login_manager.user_loader
