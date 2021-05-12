@@ -1,5 +1,12 @@
 <h1>Login</h1>
 <div>
+    {% with messages = get_flashed_messages() %}
+    {% for m in messages %}
+        <p>{{ m }}</p>
+    {% endfor %}
+    {% endwith %}
+</div>
+<div>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <p>

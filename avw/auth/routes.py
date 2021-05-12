@@ -21,6 +21,7 @@ def login():
             flash(f'Succesfully logged in user {user}')
             next = request.args.get('next', 'main.index')
             return redirect(url_for(next))
+        flash('Invalid login or password')
         return redirect(url_for('auth.login'))
     return render_template('auth/login.html', title='Login', form=form)
 
