@@ -2,13 +2,14 @@ from avw.models import User
 
 def test_new_user(new_user: User):
     assert new_user.username == 'Joe'
-    assert new_user.username == 'example@example.com'
+    assert new_user.email == 'example@example.com'
     assert new_user.password_hash != 'VerySecure'
+    assert new_user.validate_password('VerySecure') is True
 
 def test_get_favorite_airports(new_user: User):
     apts = new_user.get_favorite_airports()
     assert apts is not None
-    assert type(apts) == dict
+    assert type(apts) == list
 
 def test_add_favorite_airport(new_user: User):
     new_user.add_airport_to_favorites('EPKK')
