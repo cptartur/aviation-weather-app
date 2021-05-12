@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField
+from wtforms.fields import StringField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 
 
@@ -36,4 +36,3 @@ class SetNewPasswordForm(FlaskForm):
             EqualTo('password', message='Passwords must be equal')
         ]
     )
-    submit = SubmitField('Set new password')
