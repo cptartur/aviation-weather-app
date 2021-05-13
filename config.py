@@ -6,3 +6,5 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'localhost')
     MAIL_PORT = os.environ.get('MAIL_PORT', 8025)
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
+    SEARCH_INDEX_NAME = os.environ.get('SEARCH_INDEX_NAME')

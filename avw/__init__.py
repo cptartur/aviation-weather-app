@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mailman import Mail
 from config import Config
+from elasticsearch import Elasticsearch
 
 
 db = SQLAlchemy()
@@ -19,6 +20,10 @@ def create_app(config=Config):
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+
+    es_url = app.config.get('ELASTICSEARCH_URL')
+    if es_url is not None:
+        app.elasticsearch = Elasticsearch(es_url)
 
     from avw.main import bp as main_bp
     app.register_blueprint(main_bp)
