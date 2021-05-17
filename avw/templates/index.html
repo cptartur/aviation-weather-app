@@ -13,9 +13,32 @@
     {% endwith %}
     <form method="POST" action="/">
         {{ form.hidden_tag() }}
-        {{ form.airport_name.label }} {{ form.airport_name(size=20) }}
-        <input type="submit" value="Search">
+        <p>
+            {% for error in form.airport_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            {{ form.airport_name.label }} {{ form.airport_name(size=20) }}
+            <input type="submit" value="Search">
+        </p>
     </form>
+    {% if recent_apts is not none %}
+    <div>
+        <p>Recently searched airports</p>
+        {% for airport in recent_apts %}
+        <a href="{{ url_for('main.search', code=airport) }}">{{ airport }}</a>
+        <br>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if favorite_apts is not none and favorite_apts|count > 0 %}
+    <div>
+        <p>Favorite airports</p>
+        {% for airport in favorite_apts %}
+        <a href="{{ url_for('main.airport', code=airport) }}">{{ airport }}</a>
+        <br>
+        {% endfor %}
+    </div>
+    {% endif %}
 </body>
 
 </html>
