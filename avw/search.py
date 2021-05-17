@@ -17,13 +17,13 @@ def search_airport(name) -> list:
                                 'multi_match': {
                                     'query': name,
                                     'type': 'phrase_prefix',
-                                    'fields': ['ident', 'name']
+                                    'fields': ['ident', 'name', 'municipality'],
                                 }
                             }
                         ],
                         'filter': [
                             {
-                                'term': {'type': 'large_airport'}
+                                'terms': {'type': ['large_airport', 'medium_airport']}
                             }
                         ]
                     }
@@ -32,8 +32,6 @@ def search_airport(name) -> list:
         )
     except TransportError as e:
         return None
-    
-    print(q)
     if q['timed_out'] is False and q['hits']['total']['value'] > 0:
         return sorted(q['hits']['hits'], key=lambda k: k['_score'], reverse=True)
     else:
