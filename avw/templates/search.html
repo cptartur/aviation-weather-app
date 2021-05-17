@@ -1,6 +1,6 @@
 <h1>Results</h1>
 {% for result in results %}
 <div>
-    <a href="{{ url_for('main.airport', code=result['_source']['ident']) }}">{{ result['_source']['ident'] }}: {{ result['_source']['name'] }}, {{ result['_source']['municipality'] }} score {{ result['_score'] }}</a>
+    <a href="{{ url_for('airport.airport', code=result['_source']['ident']) }}">{{ result['_source']['ident'] }}: {{ result['_source']['name'] }}, {{ result['_source']['municipality'] }} score {{ result['_score'] }}</a>
 </div>
 {% endfor %}

@@ -34,7 +34,7 @@
     <div>
         <p>Favorite airports</p>
         {% for airport in favorite_apts %}
-        <a href="{{ url_for('main.airport', code=airport) }}">{{ airport }}</a>
+        <a href="{{ url_for('airport.airport', code=airport) }}">{{ airport }}</a>
         <br>
         {% endfor %}
     </div>
