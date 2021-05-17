@@ -19,3 +19,26 @@ def airport(code):
         'airport/airport.html', name=code, metar=metar,
         in_favorites=in_favorites)
 
+
+@bp.route('/airport/add/<code>', methods=['GET'])
+def add(code):
+    if current_user.is_authenticated:
+        current_user.add_airport_to_favorites(code)
+        db.session.commit()
+        next = request.args.get('next')
+        if next is None:
+            return redirect(url_for('main.index'))
+        return redirect(next)
+    return redirect(url_for('main.index'))
+
+
+@bp.route('/airport/remove/<code>', methods=['GET'])
+def remove(code):
+    if current_user.is_authenticated:
+        current_user.remove_airport_from_favorites(code)
+        db.session.commit()
+        next = request.args.get('next')
+        if next is None:
+            return redirect(url_for('main.index'))
+        return redirect(next)
+    return redirect(url_for('main.index'))

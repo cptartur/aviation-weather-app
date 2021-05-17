@@ -34,3 +34,14 @@
     </table>
     <p>Report time {{ metar['observation_time'] }}</p>
 </div>
+<div>
+    {% if not in_favorites %}
+    <a href="{{ url_for('airport.add', code=metar['station_id'], 
+             next=url_for('airport.airport', code=metar['station_id'])) }}">
+             Add this airport to favorites!</a>
+    {% else %}
+    <a href="{{ url_for('airport.remove', code=metar['station_id'], 
+             next=url_for('airport.airport', code=metar['station_id'])) }}">
+             Remove this airport from favorites</a>
+    {% endif %}
+</div>
