@@ -25,6 +25,9 @@ def create_app(config=Config):
 
     from avw.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
+
+    from avw.airport import bp as airport_bp
+    app.register_blueprint(airport_bp)
     
     return app
 

@@ -1,0 +1,36 @@
+<h1>Weather report for {{ name }}</h1>
+<div>
+    <table>
+        <thead>
+            <th>Temperature</th>
+            <th>Clouds</th>
+            <th>Altimeter</th>
+            <th>Wind</th>
+            <th>Visiblity</th>
+            <th>Special Conditions</th>
+        </thead>
+        <tbody>
+            <th>{{ metar['temp_c']|int }}°C, dewpoint {{ metar['dewpoint_c']|int }}°C</th>
+            <th>
+                {% for condition in metar['sky_conditions'] %}
+                {% set cover, base = condition.values() %}
+                {% if cover != "" %}
+                {{ cover }} at {{ base }}ft
+                <br>
+                {% endif %}
+                {% endfor %}
+            </th>
+            <th>{{ metar['altim_in_hpa'] }}hpa</th>
+            <th>From {{ metar['wind_dir_degrees'] }} at {{ metar['wind_speed_kt'] }}kt</th>
+            <th>
+                {% if metar['visibility_m'] == 9999 %}
+                10km or more
+                {% else %}
+                {{ metar['visibility_m'] }}m
+                {% endif %}
+            </th>
+            <th>{{ metar['wx_string']}}</th>
+        </tbody>
+    </table>
+    <p>Report time {{ metar['observation_time'] }}</p>
+</div>
