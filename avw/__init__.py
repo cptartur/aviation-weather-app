@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mailman import Mail
+from flask_caching import Cache
 from config import Config
 from elasticsearch import Elasticsearch
 
@@ -9,6 +10,8 @@ from elasticsearch import Elasticsearch
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
+cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+
 
 def create_app(config=Config):
     app = Flask(__name__)
@@ -20,6 +23,7 @@ def create_app(config=Config):
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    cache.init_app(app)
 
     es_url = app.config.get('ELASTICSEARCH_URL')
     if es_url is not None:

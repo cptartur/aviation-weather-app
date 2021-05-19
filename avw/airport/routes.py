@@ -1,5 +1,5 @@
 from avw.airport import bp
-from avw import db
+from avw import db, cache
 from metar.metar import Metar
 from flask_login import current_user
 from flask import render_template, abort, url_for, redirect, request
@@ -7,9 +7,14 @@ from flask import render_template, abort, url_for, redirect, request
 m = Metar()
 
 
+@cache.memoize(timeout=60)
+def get_metar_cached(code):
+    return m.get_metar(code)
+
+
 @bp.route('/airport/<code>', methods=('GET', 'POST'))
 def airport(code):
-    metar = m.get_metar(code)
+    metar = get_metar_cached(code)
     in_favorites = False
     preferences = {}
 
