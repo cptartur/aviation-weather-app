@@ -1,0 +1,73 @@
+<h1>Weather report for {{ name }}</h1>
+<div>
+    <table>
+        <thead>
+            <th>Temperature</th>
+            <th>Clouds</th>
+            <th>Altimeter</th>
+            <th>Wind</th>
+            <th>Visiblity</th>
+            <th>Special Conditions</th>
+        </thead>
+        <tbody>
+            <th>{{ metar['temp_c']|int }}°C, dewpoint {{ metar['dewpoint_c']|int }}°C</th>
+            <th>
+                {% for condition in metar['sky_conditions'] %}
+                {% set cover, base = condition.values() %}
+                {% if cover != "" %}
+                {{ cover }} at {{ base }}ft
+                <br>
+                {% endif %}
+                {% endfor %}
+            </th>
+            <th>
+                {% if preferences.get('altim_unit', 'hPa') == 'hPa' %}
+                    {{ metar['altim_in_hpa'] }}hpa
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], altim_unit='inHg') }}">Change unit</a>
+                {% else %}
+                    {{ metar['altim_in_hg'] }}inHg
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], altim_unit='hPa') }}">Change unit</a>
+                {% endif %}
+            </th>
+            <th>From {{ metar['wind_dir_degrees'] }}° at {{ metar['wind_speed_kt'] }}kt</th>
+            <th>
+                {% if preferences.get('vis_unit', 'm') == 'm' %} 
+                    {% if metar['visibility_m'] == 9999 %}
+                        10km or more
+                    {% else %}
+                        {{ metar['visibility_m'] }}m
+                    {% endif %}
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], vis_unit='sm') }}">Change unit</a>
+                {% else %}
+                    {% if metar['visibility_statute_mi'] == 6.21 %}
+                        6sm or more
+                    {% else %}
+                        {{ metar['visibility_statute_mi'] }}sm
+                    {% endif %}
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], vis_unit='m') }}">Change unit</a>
+                {% endif%}
+            </th>
+            <th>
+                {% if metar['wx_string'] != "" %}
+                {{ metar['wx_string']}}
+                {% else %}
+                -
+                {% endif %}
+            </th>
+        </tbody>
+    </table>
+    <p>Report time {{ metar['observation_time'] }}</p>
+</div>
+{% if is_authenticated %}
+<div>
+    {% if not in_favorites %}
+    <a href="{{ url_for('airport.add', code=metar['station_id'], 
+             next=url_for('airport.airport', code=metar['station_id'])) }}">
+             Add this airport to favorites!</a>
+    {% else %}
+    <a href="{{ url_for('airport.remove', code=metar['station_id'], 
+             next=url_for('airport.airport', code=metar['station_id'])) }}">
+             Remove this airport from favorites</a>
+    {% endif %}
+</div>
+{% endif %}
