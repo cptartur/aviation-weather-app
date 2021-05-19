@@ -1,6 +1,8 @@
+from avw.models import User
 from flask_wtf import FlaskForm
 from wtforms.fields import StringField, PasswordField
-from wtforms.validators import DataRequired, Email, EqualTo, Length
+from wtforms.validators import (DataRequired, Email, EqualTo, Length,
+                                ValidationError)
 
 
 class RegisterForm(FlaskForm):
@@ -16,6 +18,14 @@ class RegisterForm(FlaskForm):
             EqualTo('password', message='Passwords must be equal'),
         ),
     )
+
+    def validate_username(form, field):
+        if len(User.query.filter_by(username=field.data).all()) != 0:
+            raise ValidationError('Username already in use')
+
+    def validate_email(form, field):
+        if len(User.query.filter_by(email=field.data).all()) != 0:
+            raise ValidationError('Email already in use')
 
 
 class LoginForm(FlaskForm):
