@@ -10,6 +10,7 @@ m = Metar()
 @bp.route('/airport/<code>', methods=('GET', 'POST'))
 def airport(code):
     metar = m.get_metar(code)
+    in_favorites = False
     if metar['errors'] is not None:
         abort(500)
     if current_user.is_authenticated:
