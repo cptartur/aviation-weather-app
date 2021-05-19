@@ -29,7 +29,13 @@
                 {{ metar['visibility_m'] }}m
                 {% endif %}
             </th>
-            <th>{{ metar['wx_string']}}</th>
+            <th>
+                {% if metar['wx_string'] != "" %}
+                {{ metar['wx_string']}}
+                {% else %}
+                -
+                {% endif %}
+            </th>
         </tbody>
     </table>
     <p>Report time {{ metar['observation_time'] }}</p>
