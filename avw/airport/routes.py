@@ -34,7 +34,8 @@ def airport(code):
 
     return render_template(
         'airport/airport.html', name=code, metar=metar,
-        in_favorites=in_favorites, preferences=preferences)
+        in_favorites=in_favorites, preferences=preferences,
+        is_authenticated=current_user.is_authenticated)
 
 
 @bp.route('/airport/add/<code>', methods=['GET'])
