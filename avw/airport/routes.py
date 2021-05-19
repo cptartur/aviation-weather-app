@@ -11,14 +11,25 @@ m = Metar()
 def airport(code):
     metar = m.get_metar(code)
     in_favorites = False
+    preferences = {}
+
     if metar['errors'] is not None:
         abort(500)
     if current_user.is_authenticated:
         in_favorites = True if code in current_user.get_favorite_airports() \
             else False
+        preferences = current_user.get_preferences()
+
+    vis_unit = request.args.get('vis_unit')
+    altim_unit = request.args.get('altim_unit')
+    if vis_unit is not None:
+        preferences.update({'vis_unit': vis_unit})
+    if altim_unit is not None:
+        preferences.update({'altim_unit': altim_unit})
+
     return render_template(
         'airport/airport.html', name=code, metar=metar,
-        in_favorites=in_favorites)
+        in_favorites=in_favorites, preferences=preferences)
 
 
 @bp.route('/airport/add/<code>', methods=['GET'])

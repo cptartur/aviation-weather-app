@@ -20,14 +20,32 @@
                 {% endif %}
                 {% endfor %}
             </th>
-            <th>{{ metar['altim_in_hpa'] }}hpa</th>
-            <th>From {{ metar['wind_dir_degrees'] }} at {{ metar['wind_speed_kt'] }}kt</th>
             <th>
-                {% if metar['visibility_m'] == 9999 %}
-                10km or more
+                {% if preferences.get('altim_unit', 'hPa') == 'hPa' %}
+                    {{ metar['altim_in_hpa'] }}hpa
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], altim_unit='inHg') }}">Change unit</a>
                 {% else %}
-                {{ metar['visibility_m'] }}m
+                    {{ metar['altim_in_hg'] }}inHg
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], altim_unit='hPa') }}">Change unit</a>
                 {% endif %}
+            </th>
+            <th>From {{ metar['wind_dir_degrees'] }}° at {{ metar['wind_speed_kt'] }}kt</th>
+            <th>
+                {% if preferences.get('vis_unit', 'm') == 'm' %} 
+                    {% if metar['visibility_m'] == 9999 %}
+                        10km or more
+                    {% else %}
+                        {{ metar['visibility_m'] }}m
+                    {% endif %}
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], vis_unit='sm') }}">Change unit</a>
+                {% else %}
+                    {% if metar['visibility_statute_mi'] == 6.21 %}
+                        6sm or more
+                    {% else %}
+                        {{ metar['visibility_statute_mi'] }}sm
+                    {% endif %}
+                    <a href="{{ url_for('airport.airport', code=metar['station_id'], vis_unit='m') }}">Change unit</a>
+                {% endif%}
             </th>
             <th>
                 {% if metar['wx_string'] != "" %}
