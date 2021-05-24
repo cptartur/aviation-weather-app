@@ -1,44 +1,59 @@
-<html>
+{% extends "layout.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-<head>
-    <title>Aviation Weather App</title>
-</head>
+{% block app_content %}
 
-<body>
-    <h1>Hello, world!</h1>
-    {% with messages = get_flashed_messages() %}
-    {% for m in messages %}
-    <p>{{ m }}</p>
-    {% endfor %}
-    {% endwith %}
-    <form method="POST" action="/">
-        {{ form.hidden_tag() }}
-        <p>
-            {% for error in form.airport_name.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='search_template.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='favorite_button.css') }}">
+    </head>
+
+    <br>
+    <br>
+    <div style="text-align:center">
+        <img src="{{ url_for('static', filename='logo_sun.PNG') }}" alt="logo">
+        <br>
+        <br>
+        <br>
+        <br>
+        {% with messages = get_flashed_messages() %}
+            {% for m in messages %}
+                <p>{{ m }}</p>
             {% endfor %}
-            {{ form.airport_name.label }} {{ form.airport_name(size=20) }}
-            <input type="submit" value="Search">
-        </p>
-    </form>
-    {% if recent_apts is not none %}
-    <div>
-        <p>Recently searched airports</p>
-        {% for airport in recent_apts %}
-        <a href="{{ url_for('main.search', code=airport) }}">{{ airport }}</a>
-        <br>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% if favorite_apts is not none and favorite_apts|count > 0 %}
-    <div>
-        <p>Favorite airports</p>
-        {% for airport in favorite_apts %}
-        <a href="{{ url_for('airport.airport', code=airport) }}">{{ airport }}</a>
-        <br>
-        {% endfor %}
-    </div>
-    {% endif %}
-</body>
+        {% endwith %}
 
-</html>
+        <form method="POST" action="/">
+            {{ form.hidden_tag() }}
+            <p>
+                {% for error in form.airport_name.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                {{ form.airport_name(size=20) }}
+            </p>
+        </form>
+
+        <br>
+
+        {% if favorite_apts is not none and favorite_apts|count > 0 %}
+            <div class="center-block list-group" style="width: 20%; ">
+                <a href="#" class="list_fav list-group-item list-group-item-action active">Favorite airports</a>
+                {% for airport in favorite_apts %}
+                    <a href="{{ url_for('main.search', code=airport) }}"
+                       class="list-group-item list-group-item-action">{{ airport }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if recent_apts is not none %}
+            <div class="center-block list-group" style="width: 20%;">
+                <a href="#" class="list_fav list-group-item list-group-item-action active">Recently searched
+                    airports</a>
+                {% for airport in recent_apts %}
+                    <a href="{{ url_for('main.search', code=airport) }}"
+                       class="list-group-item list-group-item-action">{{ airport }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

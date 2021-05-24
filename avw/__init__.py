@@ -5,12 +5,14 @@ from flask_mailman import Mail
 from flask_caching import Cache
 from config import Config
 from elasticsearch import Elasticsearch
+from flask_bootstrap import Bootstrap
 
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 mail = Mail()
 cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+bootstrap = Bootstrap()
 
 
 def create_app(config=Config):
@@ -24,6 +26,7 @@ def create_app(config=Config):
     login_manager.init_app(app)
     mail.init_app(app)
     cache.init_app(app)
+    bootstrap.init_app(app)
 
     es_url = app.config.get('ELASTICSEARCH_URL')
     if es_url is not None:

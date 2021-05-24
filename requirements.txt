@@ -8,3 +8,4 @@ pytest
 pyjwt
 flask-mailman
 elasticsearch
+flask-bootstrap

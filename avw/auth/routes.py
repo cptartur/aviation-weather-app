@@ -18,7 +18,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is not None and user.validate_password(form.password.data):
             login_user(user)
-            flash(f'Succesfully logged in user {user}')
+            # flash(f'Succesfully logged in user {current_user.username}')
             next = request.args.get('next', 'main.index')
             return redirect(url_for(next))
         flash('Invalid login or password')

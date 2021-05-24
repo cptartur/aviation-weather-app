@@ -1,37 +1,70 @@
-<h1>Register</h1>
-<div>
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}
-            {{ form.username(size=64) }}
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.email.label }}
-            {{ form.email(size=64) }}
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}
-            {{ form.password(size=64) }}
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.confirm_password.label }}
-            {{ form.confirm_password(size=64) }}
-            {% for error in form.confirm_password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            <input type=submit value=Register>
-        </p>
-    </form>
-</div>
+{% extends "layout.html" %}
+
+{% block app_content %}
+
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='register_template.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='favorite_button.css') }}">
+    </head>
+
+    <div style="text-align:center">
+        <img src="{{ url_for('static', filename='register.PNG') }}" alt="register">
+        <div>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username(size=64, class="user") }}
+                </p>
+                {% if form.username.errors|length > 0 %}
+                    <p>
+                        {% for error in form.username.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                {% else %}
+                    <br>
+                {% endif %}
+                <p>
+                    {{ form.email(size=64, class="email") }}
+                </p>
+                {% if form.email.errors|length > 0 %}
+                    <p>
+                        {% for error in form.email.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                {% else %}
+                    <br>
+                {% endif %}
+                <p>
+                    {{ form.password(size=64, class="pass") }}
+                </p>
+                {% if form.password.errors|length > 0 %}
+                    <p>
+                        {% for error in form.password.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                {% else %}
+                    <br>
+                {% endif %}
+
+                <p>
+                    {{ form.confirm_password(size=64, class="confpass") }}
+                </p>
+                {% if form.confirm_password.errors|length > 0 %}
+                    <p>
+                        {% for error in form.confirm_password.errors %}
+                            <span class="conf_pass_error" style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </p>
+                {% else %}
+                    <br>
+                {% endif %}
+                <a>
+                    <button type=submit class="button"><span>Create Account</span></button>
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
