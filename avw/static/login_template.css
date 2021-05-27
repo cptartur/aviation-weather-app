@@ -7,7 +7,7 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Password</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Password</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }
@@ -21,7 +21,7 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Login</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Login</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }

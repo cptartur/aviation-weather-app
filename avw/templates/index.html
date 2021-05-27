@@ -16,11 +16,6 @@
         <br>
         <br>
         <br>
-        {% with messages = get_flashed_messages() %}
-            {% for m in messages %}
-                <p>{{ m }}</p>
-            {% endfor %}
-        {% endwith %}
 
         <form method="POST" action="/">
             {{ form.hidden_tag() }}

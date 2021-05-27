@@ -7,7 +7,7 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Username</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Username</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }
@@ -21,21 +21,7 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Email</text></svg>");
-    background-repeat: no-repeat;
-    outline: none;
-}
-
-.changemail {
-    width: 35%;
-    padding: 8px 20px;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='370px'><text x='20' y='22' fill='gray' font-size='16'>Type email and check inbox</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Email</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }
@@ -49,7 +35,7 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Password</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Password</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }
@@ -63,10 +49,18 @@
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='16'>Confirm Password</text></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='50px' width='200px'><text x='20' y='22' fill='gray' font-size='15'>Confirm Password</text></svg>");
     background-repeat: no-repeat;
     outline: none;
 }
+
+.conf_pass_error {
+    /*float: none;*/
+    /*margin-top: 50px;*/
+    position: relative;
+    /*top: -180px;*/
+}
+
 
 input:valid {
     background-image: none;
