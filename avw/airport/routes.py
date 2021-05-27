@@ -19,7 +19,7 @@ def airport(code):
     preferences = {}
 
     if metar['errors'] is not None:
-        abort(500)
+        return redirect(url_for('errors.no_metar_for_this_airport_error'))
     if current_user.is_authenticated:
         in_favorites = True if code in current_user.get_favorite_airports() \
             else False
