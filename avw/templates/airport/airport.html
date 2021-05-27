@@ -3,6 +3,7 @@
 {% block app_content %}
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='favorite_button.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='airport_template.css') }}">
     </head>
 
     <div style="text-align:center">
@@ -21,14 +22,19 @@
                 <th>Report Time</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="airport">
             <tr>
                 <td>{{ metar['temp_c']|int }}°C, dewpoint {{ metar['dewpoint_c']|int }}°C</td>
                 <td>
                     {% for condition in metar['sky_conditions'] %}
                         {% set cover, base = condition.values() %}
                         {% if cover != "" %}
-                            {{ cover }} at {{ base }}ft
+                            {% set cover = cover|decode_clouds %}
+                            {% if cover == "Clear" %}
+                                {{ cover }}
+                            {% else %}
+                                {{ cover|decode_clouds }} at {{ base }}ft
+                            {% endif %}
                             <br>
                         {% endif %}
                     {% endfor %}
@@ -46,7 +52,13 @@
                         </a>
                     {% endif %}
                 </td>
-                <td>From {{ metar['wind_dir_degrees'] }}° at {{ metar['wind_speed_kt'] }}kt</td>
+                <td>
+                    {% if metar['wind_speed_kt']|int != 0 %}
+                    From {{ metar['wind_dir_degrees'] }}° at {{ metar['wind_speed_kt'] }}kt
+                    {% else %}
+                    No wind
+                    {% endif %}
+                </td>
                 <td>
                     {% if preferences.get('vis_unit', 'm') == 'm' %}
                         {% if metar['visibility_m'] == 9999 %}
