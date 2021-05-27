@@ -35,24 +35,44 @@
         <br>
 
         {% if favorite_apts is not none and favorite_apts|count > 0 %}
-            <div class="center-block list-group" style="width: 20%; ">
-                <a href="#" class="list_fav list-group-item list-group-item-action active">Favorite airports</a>
-                {% for airport in favorite_apts %}
-                    <a href="{{ url_for('airport.airport', code=airport) }}"
-                       class="list-group-item list-group-item-action">{{ airport }}</a>
-                {% endfor %}
-            </div>
-        {% endif %}
+            {% if recent_apts is not none %}
+                <div class="columns">
+                    <div class="col-2 list-group" style="width: 20%;">
+                        <a href="#" class="list_fav list-group-item list-group-item-action active">Recently Searched</a>
+                        {% for airport in recent_apts %}
+                            <a href="{{ url_for('main.search', code=airport) }}"
+                               class="list-group-item list-group-item-action">{{ airport }}</a>
+                        {% endfor %}
+                    </div>
 
-        {% if recent_apts is not none %}
-            <div class="center-block list-group" style="width: 20%;">
-                <a href="#" class="list_fav list-group-item list-group-item-action active">Recently searched
-                    airports</a>
-                {% for airport in recent_apts %}
-                    <a href="{{ url_for('main.search', code=airport) }}"
-                       class="list-group-item list-group-item-action">{{ airport }}</a>
-                {% endfor %}
-            </div>
+                    <div class="col-2 list-group" style="width: 20%; ">
+                        <a href="#" class="list_fav list-group-item list-group-item-action active">Favorite Airports</a>
+                        {% for airport in favorite_apts %}
+                            <a href="{{ url_for('airport.airport', code=airport) }}"
+                               class="list-group-item list-group-item-action">{{ airport|airport_name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <div class="center-block list-group" style="width: 20%; ">
+                    <a href="#" class="list_fav list-group-item list-group-item-action active">Favorite Airports</a>
+                    {% for airport in favorite_apts %}
+                        <a href="{{ url_for('airport.airport', code=airport) }}"
+                           class="list-group-item list-group-item-action">{{ airport|airport_name }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        {% else %}
+            {% if recent_apts is not none %}
+                <div class="center-block list-group" style="width: 20%;">
+                    <a href="#" class="list_fav list-group-item list-group-item-action active">Recently Searched</a>
+                    {% for airport in recent_apts %}
+                        <a href="{{ url_for('main.search', code=airport) }}"
+                           class="list-group-item list-group-item-action">{{ airport }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         {% endif %}
     </div>
 
