@@ -8,3 +8,4 @@ pytest
 pyjwt
 flask-mailman
 elasticsearch
+git+https://github.com/cptartur/metar-py.git
