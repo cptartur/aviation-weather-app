@@ -40,14 +40,8 @@
         </div>
         <br>
         <div>
-            <a href="{{ url_for('auth.register') }}">
-                <button class="button"><span>Don't have an account?</span></button>
-            </a>
-
-            <a href="{{ url_for('auth.request_password_reset') }}">
-                <button class="button"><span>Forgot the password?</span></button>
-            </a>
-
+            <a href="{{ url_for('auth.register') }}"><button class="button"><span>Don't have an account?</span></button></a>
+            <a href="{{ url_for('auth.request_password_reset') }}"><button class="button"><span>Forgot the password?</span></button></a>
         </div>
     </div>
 {% endblock %}
