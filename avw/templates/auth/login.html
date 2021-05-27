@@ -17,13 +17,7 @@
     <div style="text-align:center">
 
         <img src="{{ url_for('static', filename='sign_in.PNG') }}" alt="sign">
-        <div>
-            {% with messages = get_flashed_messages() %}
-                {% for m in messages %}
-                    <p>{{ m }}</p>
-                {% endfor %}
-            {% endwith %}
-        </div>
+
         <div>
             <form method="POST" action="">
                 {{ form.hidden_tag() }}
