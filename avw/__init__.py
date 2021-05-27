@@ -40,6 +40,9 @@ def create_app(config=Config):
 
     from avw.airport import bp as airport_bp
     app.register_blueprint(airport_bp)
+
+    from avw.errors import bp as error_bp
+    app.register_blueprint(error_bp)
     
     return app
 
