@@ -1,33 +1,47 @@
-<h1>Login</h1>
-<div>
-    {% with messages = get_flashed_messages() %}
-    {% for m in messages %}
-        <p>{{ m }}</p>
-    {% endfor %}
-    {% endwith %}
-</div>
-<div>
-    <form method="POST" action="">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.username.label }}
-            {{ form.username(size=64) }}
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            {{ form.password.label }}
-            {{ form.password(size=64) }}
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>
-            <input type="submit" value="Login">
-        </p>
-    </form>
-</div>
-<div>
-    <a href="{{ url_for('auth.register') }}">Don't have an account?</a>
-</div>
+{% extends "layout.html" %}
+
+{% block app_content %}
+
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='login_template.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='favorite_button.css') }}">
+
+        <style>
+            input[type=text], input[type=password] {
+                width: 22%;
+                margin: 8px 0;
+            }
+        </style>
+    </head>
+
+    <div style="text-align:center">
+
+        <img src="{{ url_for('static', filename='sign_in.PNG') }}" alt="sign">
+
+        <div>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.username(size=64, class="login") }}
+                    {% for error in form.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.password(size=64, class="pass") }}
+                    {% for error in form.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <a>
+                    <button type=submit class="login_button button"><span>Login</span></button>
+                </a>
+            </form>
+        </div>
+        <br>
+        <div>
+            <a href="{{ url_for('auth.register') }}"><button class="button"><span>Don't have an account?</span></button></a>
+            <a href="{{ url_for('auth.request_password_reset') }}"><button class="button"><span>Forgot the password?</span></button></a>
+        </div>
+    </div>
+{% endblock %}

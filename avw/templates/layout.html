@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pogodeo</title>
+    <link rel="shortcut icon" href={{ url_for('static', filename='favicon.ico') }}>
+</head>
+
+<body>
+{# Navigation bar block #}
+{% include 'base.html' %}
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {# Main content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+</body>
+</html>
