@@ -27,7 +27,6 @@ def test_login_user(client):
         '/login', data={'username': 'Susan', 'password': '12345'},
         follow_redirects=True)
     assert rv.status_code == 200
-    assert b'Succesfully logged in user' in rv.data
 
     db.session.delete(user)
     db.session.commit()
