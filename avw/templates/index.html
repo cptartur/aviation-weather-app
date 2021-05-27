@@ -38,7 +38,7 @@
             <div class="center-block list-group" style="width: 20%; ">
                 <a href="#" class="list_fav list-group-item list-group-item-action active">Favorite airports</a>
                 {% for airport in favorite_apts %}
-                    <a href="{{ url_for('main.search', code=airport) }}"
+                    <a href="{{ url_for('airport.airport', code=airport) }}"
                        class="list-group-item list-group-item-action">{{ airport }}</a>
                 {% endfor %}
             </div>
