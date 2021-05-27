@@ -3,7 +3,9 @@
 {% block app_content %}
 
     <div style="text-align:center">
-        <img src="{{ url_for('static', filename='404_image.PNG') }}" alt="404">
+        {% if img is not none %}
+        <img src="{{ img }}" alt="476">
+        {% endif %}
     </div>
     <br>
     <br>
