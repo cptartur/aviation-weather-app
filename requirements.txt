@@ -9,3 +9,4 @@ pyjwt
 flask-mailman
 elasticsearch
 flask-bootstrap
+git+https://github.com/cptartur/metar-py.git
